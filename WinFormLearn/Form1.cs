@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormLearn
@@ -121,10 +122,21 @@ namespace WinFormLearn
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             var worker = sender as BackgroundWorker;
+            long total = 0;
+            var partialResults = new List<long>();
 
             for (int i = 1; i <= 10; i++)
             {
                 Thread.Sleep(1000);
+
+                long partial = 0;
+                for (int j = 1; j <= 50000; j++)
+                {
+                    partial += (long)i * j;
+                }
+
+                partialResults.Add(partial);
+                total += partial;
 
                 if (worker != null && worker.WorkerSupportsCancellation && worker.CancellationPending)
                 {
@@ -134,6 +146,19 @@ namespace WinFormLearn
 
                 worker?.ReportProgress(i * 10);
             }
+
+            var resultBuilder = new StringBuilder();
+            resultBuilder.AppendLine("복잡한 계산이 완료되었습니다.");
+            resultBuilder.AppendLine($"총합: {total:N0}");
+            resultBuilder.AppendLine();
+            resultBuilder.AppendLine("구간별 계산 결과:");
+
+            for (int i = 0; i < partialResults.Count; i++)
+            {
+                resultBuilder.AppendLine($"단계 {i + 1}: {partialResults[i]:N0}");
+            }
+
+            e.Result = resultBuilder.ToString();
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -146,10 +171,17 @@ namespace WinFormLearn
                 labelProgress.Text = $"{e.ProgressPercentage}%";
         }
 
+        private void buttonOpenCrud_Click(object sender, EventArgs e)
+        {
+            using var crudForm = new ProductCrudForm();
+            crudForm.ShowDialog(this);
+        }
+
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             buttonStartBackground.Enabled = true;
             buttonCancelBackground.Enabled = false;
+            progressBar1.Value = e.Cancelled || e.Error != null ? 0 : progressBar1.Maximum;
 
             if (e.Cancelled)
             {
@@ -163,7 +195,8 @@ namespace WinFormLearn
                 return;
             }
 
-            MessageBox.Show("백그라운드 작업이 완료되었습니다!");
+            var resultMessage = e.Result as string ?? "계산 결과를 가져오지 못했습니다.";
+            MessageBox.Show(resultMessage, "계산 결과", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
     }

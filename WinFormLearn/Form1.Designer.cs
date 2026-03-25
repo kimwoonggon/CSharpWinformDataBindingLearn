@@ -23,6 +23,7 @@
         private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.Button buttonStartBackground;
         private System.Windows.Forms.Button buttonCancelBackground;
+        private System.Windows.Forms.Button buttonOpenCrud;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -61,6 +62,7 @@
             labelProgress = new Label();
             buttonStartBackground = new Button();
             buttonCancelBackground = new Button();
+            buttonOpenCrud = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -207,11 +209,26 @@
             buttonCancelBackground.UseVisualStyleBackColor = true;
             buttonCancelBackground.Click += buttonCancelBackground_Click;
             // 
+            // buttonOpenCrud
+            // 
+            buttonOpenCrud.Location = new Point(20, 400);
+            buttonOpenCrud.Name = "buttonOpenCrud";
+            buttonOpenCrud.Size = new Size(200, 40);
+            buttonOpenCrud.TabIndex = 17;
+            buttonOpenCrud.Text = "\U0001F4E6 상품 DB 관리 열기";
+            buttonOpenCrud.BackColor = Color.FromArgb(0, 120, 212);
+            buttonOpenCrud.ForeColor = Color.White;
+            buttonOpenCrud.FlatStyle = FlatStyle.Flat;
+            buttonOpenCrud.FlatAppearance.BorderSize = 0;
+            buttonOpenCrud.Font = new Font("Segoe UI Semibold", 10F);
+            buttonOpenCrud.Cursor = Cursors.Hand;
+            buttonOpenCrud.Click += buttonOpenCrud_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 480);
             Controls.Add(buttonAdd);
             Controls.Add(buttonPrev);
             Controls.Add(buttonNext);
@@ -227,6 +244,7 @@
             Controls.Add(labelProgress);
             Controls.Add(buttonStartBackground);
             Controls.Add(buttonCancelBackground);
+            Controls.Add(buttonOpenCrud);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
