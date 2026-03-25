@@ -22,6 +22,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.Button buttonStartBackground;
+        private System.Windows.Forms.Button buttonCancelBackground;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -59,12 +60,14 @@
             progressBar1 = new ProgressBar();
             labelProgress = new Label();
             buttonStartBackground = new Button();
+            buttonCancelBackground = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // backgroundWorker1
             // 
             backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
@@ -193,6 +196,17 @@
             buttonStartBackground.UseVisualStyleBackColor = true;
             buttonStartBackground.Click += button_Click;
             // 
+            // buttonCancelBackground
+            // 
+            buttonCancelBackground.Enabled = false;
+            buttonCancelBackground.Location = new Point(330, 396);
+            buttonCancelBackground.Name = "buttonCancelBackground";
+            buttonCancelBackground.Size = new Size(180, 30);
+            buttonCancelBackground.TabIndex = 16;
+            buttonCancelBackground.Text = "취소";
+            buttonCancelBackground.UseVisualStyleBackColor = true;
+            buttonCancelBackground.Click += buttonCancelBackground_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -212,6 +226,7 @@
             Controls.Add(progressBar1);
             Controls.Add(labelProgress);
             Controls.Add(buttonStartBackground);
+            Controls.Add(buttonCancelBackground);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;

@@ -11,8 +11,8 @@ namespace WinFormLearn
     {
         private BindingSource bindingSource1 = new BindingSource();
         private BindingSource userBindingSource = new BindingSource();
-        private User user;
-        private List<Product> allProducts; // 원본 전체 목록 보관 (검색용)
+        private User user = null!;
+        private List<Product> allProducts = new List<Product>(); // 원본 전체 목록 보관 (검색용)
         public Form1()
         {
             InitializeComponent();
@@ -62,7 +62,7 @@ namespace WinFormLearn
             var newProduct = new Product { Name = $"새 상품 {allProducts.Count + 1}" };
             allProducts.Add(newProduct);
 
-            textBoxSearch_TextChanged(null, EventArgs.Empty);
+            textBoxSearch_TextChanged(textBoxSearch, EventArgs.Empty);
             bindingSource1.Position = bindingSource1.Count - 1;
         }
 
@@ -98,22 +98,41 @@ namespace WinFormLearn
 
         private void button_Click(object sender, EventArgs e)
         {
-            // Start background work when button is clicked
             if (backgroundWorker1 != null && !backgroundWorker1.IsBusy)
             {
                 progressBar1.Value = 0;
                 labelProgress.Text = "0%";
+                buttonStartBackground.Enabled = false;
+                buttonCancelBackground.Enabled = true;
                 backgroundWorker1.RunWorkerAsync();
+            }
+        }
+
+        private void buttonCancelBackground_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1 != null && backgroundWorker1.IsBusy && backgroundWorker1.WorkerSupportsCancellation)
+            {
+                backgroundWorker1.CancelAsync();
+                buttonCancelBackground.Enabled = false;
+                labelProgress.Text = "취소 요청 중...";
             }
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            // Runs on background thread
-            for (int i = 0; i <= 100; i++)
+            var worker = sender as BackgroundWorker;
+
+            for (int i = 1; i <= 10; i++)
             {
-                Thread.Sleep(100);
-                backgroundWorker1.ReportProgress(i);
+                Thread.Sleep(1000);
+
+                if (worker != null && worker.WorkerSupportsCancellation && worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                worker?.ReportProgress(i * 10);
             }
         }
 
@@ -129,6 +148,21 @@ namespace WinFormLearn
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            buttonStartBackground.Enabled = true;
+            buttonCancelBackground.Enabled = false;
+
+            if (e.Cancelled)
+            {
+                MessageBox.Show("백그라운드 작업이 취소되었습니다!");
+                return;
+            }
+
+            if (e.Error != null)
+            {
+                MessageBox.Show($"작업 중 오류가 발생했습니다: {e.Error.Message}");
+                return;
+            }
+
             MessageBox.Show("백그라운드 작업이 완료되었습니다!");
         }
 
