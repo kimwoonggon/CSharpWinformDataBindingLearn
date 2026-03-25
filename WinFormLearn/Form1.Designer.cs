@@ -11,6 +11,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxUserName;
+        private System.Windows.Forms.TextBox textBoxUserEmail;
+        private System.Windows.Forms.Label labelUserName;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -37,6 +40,9 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBoxUserName = new System.Windows.Forms.TextBox();
+            this.textBoxUserEmail = new System.Windows.Forms.TextBox();
+            this.labelUserName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             // 컨트롤 속성 많이 바꿀 테니까 그떄마다 레이아웃 계산하지 말고 좀 멈춰
             SuspendLayout();
@@ -59,11 +65,31 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "현재 상품 이름:";
 
+            // labelUserName
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.Location = new System.Drawing.Point(350, 150);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Size = new System.Drawing.Size(80, 12);
+            this.labelUserName.TabIndex = 4;
+            this.labelUserName.Text = "사용자 이름:";
+
             // textBox1
             this.textBox1.Location = new System.Drawing.Point(350, 60);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(180, 21);
             this.textBox1.TabIndex = 2;
+
+            // textBoxUserName
+            this.textBoxUserName.Location = new System.Drawing.Point(350, 170);
+            this.textBoxUserName.Name = "textBoxUserName";
+            this.textBoxUserName.Size = new System.Drawing.Size(180, 21);
+            this.textBoxUserName.TabIndex = 5;
+
+            // textBoxUserEmail
+            this.textBoxUserEmail.Location = new System.Drawing.Point(350, 205);
+            this.textBoxUserEmail.Name = "textBoxUserEmail";
+            this.textBoxUserEmail.Size = new System.Drawing.Size(180, 21);
+            this.textBoxUserEmail.TabIndex = 6;
 
             // buttonAdd
             this.buttonAdd.Location = new System.Drawing.Point(350, 110);
@@ -82,6 +108,9 @@
             ClientSize = new Size(800, 450);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxUserEmail);
+            this.Controls.Add(this.textBoxUserName);
+            this.Controls.Add(this.labelUserName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
 

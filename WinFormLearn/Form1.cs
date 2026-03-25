@@ -7,6 +7,8 @@ namespace WinFormLearn
     public partial class Form1 : Form
     {
         private BindingSource bindingSource1 = new BindingSource();
+        private BindingSource userBindingSource = new BindingSource();
+        private User user;
         private BindingList<Product> products;
         public Form1()
         {
@@ -28,6 +30,9 @@ namespace WinFormLearn
                 new Product { Name = "바나나" },
                 new Product { Name = "포도" }
             };
+
+            // 간단한 User 초기 데이터
+            user = new User { Name = "홍길동", Email = "hong@example.com" };
         }
 
         private void InitializeBinding()
@@ -46,6 +51,34 @@ namespace WinFormLearn
                 "Text",
                 bindingSource1,
                 nameof(Product.Name),
+                true,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
+
+            // User 바인딩: 별도의 BindingSource를 사용하여 양방향 바인딩 설정
+            userBindingSource.DataSource = user;
+
+            textBoxUserName.DataBindings.Add(
+                "Text",
+                userBindingSource,
+                nameof(User.Name),
+                true,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
+
+            textBoxUserEmail.DataBindings.Add(
+                "Text",
+                userBindingSource,
+                nameof(User.Email),
+                true,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
+
+            // Label은 User.Name을 실시간으로 따라감
+            labelUserName.DataBindings.Add(
+                "Text",
+                userBindingSource,
+                nameof(User.Name),
                 true,
                 DataSourceUpdateMode.OnPropertyChanged
             );
