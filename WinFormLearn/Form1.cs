@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -93,6 +94,42 @@ namespace WinFormLearn
                 : allProducts.Where(p => p.Name != null && p.Name.Contains(keyword));
 
             RefreshView(result);
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            // Start background work when button is clicked
+            if (backgroundWorker1 != null && !backgroundWorker1.IsBusy)
+            {
+                progressBar1.Value = 0;
+                labelProgress.Text = "0%";
+                backgroundWorker1.RunWorkerAsync();
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // Runs on background thread
+            for (int i = 0; i <= 100; i++)
+            {
+                Thread.Sleep(100);
+                backgroundWorker1.ReportProgress(i);
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // Runs on UI thread
+            if (progressBar1 != null)
+                progressBar1.Value = Math.Max(progressBar1.Minimum, Math.Min(progressBar1.Maximum, e.ProgressPercentage));
+
+            if (labelProgress != null)
+                labelProgress.Text = $"{e.ProgressPercentage}%";
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("백그라운드 작업이 완료되었습니다!");
         }
 
     }

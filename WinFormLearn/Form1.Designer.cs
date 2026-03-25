@@ -18,6 +18,10 @@
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label labelSearch;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label labelProgress;
+        private System.Windows.Forms.Button buttonStartBackground;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -51,8 +55,19 @@
             buttonNext = new Button();
             textBoxSearch = new TextBox();
             labelSearch = new Label();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            progressBar1 = new ProgressBar();
+            labelProgress = new Label();
+            buttonStartBackground = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
+            // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
+            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             // 
             // dataGridView1
             // 
@@ -150,6 +165,34 @@
             labelSearch.TabIndex = 12;
             labelSearch.Text = "검색";
             // 
+            // progressBar1
+            // 
+            progressBar1.Location = new Point(20, 330);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(300, 23);
+            progressBar1.TabIndex = 13;
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = 100;
+            // 
+            // labelProgress
+            // 
+            labelProgress.AutoSize = true;
+            labelProgress.Location = new Point(330, 330);
+            labelProgress.Name = "labelProgress";
+            labelProgress.Size = new Size(60, 20);
+            labelProgress.TabIndex = 14;
+            labelProgress.Text = "0%";
+            // 
+            // buttonStartBackground
+            // 
+            buttonStartBackground.Location = new Point(330, 360);
+            buttonStartBackground.Name = "buttonStartBackground";
+            buttonStartBackground.Size = new Size(180, 30);
+            buttonStartBackground.TabIndex = 15;
+            buttonStartBackground.Text = "스레드 시작";
+            buttonStartBackground.UseVisualStyleBackColor = true;
+            buttonStartBackground.Click += button_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -166,6 +209,9 @@
             Controls.Add(labelUserName);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            Controls.Add(progressBar1);
+            Controls.Add(labelProgress);
+            Controls.Add(buttonStartBackground);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
