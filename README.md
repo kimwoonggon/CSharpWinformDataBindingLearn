@@ -4,6 +4,8 @@ WinForms 데이터바인딩(`BindingSource`, `INotifyPropertyChanged`)과 EF Cor
 
 ## 스크린샷
 
+![DataGridView Test](WinFormLearn/datagridview_test.png)
+
 ![WinForm GUI](WinFormLearn/winform_gui.png)
 
 ## 할 일
