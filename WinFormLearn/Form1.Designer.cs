@@ -17,6 +17,7 @@
         private System.Windows.Forms.Button buttonPrev;
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Label labelSearch;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -39,122 +40,138 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxUserName = new System.Windows.Forms.TextBox();
-            this.textBoxUserEmail = new System.Windows.Forms.TextBox();
-            this.labelUserName = new System.Windows.Forms.Label();
-            this.buttonPrev = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            // 컨트롤 속성 많이 바꿀 테니까 그떄마다 레이아웃 계산하지 말고 좀 멈춰
+            dataGridView1 = new DataGridView();
+            textBox1 = new TextBox();
+            buttonAdd = new Button();
+            label1 = new Label();
+            textBoxUserName = new TextBox();
+            textBoxUserEmail = new TextBox();
+            labelUserName = new Label();
+            buttonPrev = new Button();
+            buttonNext = new Button();
+            textBoxSearch = new TextBox();
+            labelSearch = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-
+            // 
             // dataGridView1
-            this.dataGridView1.ColumnHeadersHeightSizeMode =
-                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(20, 20);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(300, 250);
-            this.dataGridView1.TabIndex = 0;
-
-
-            // label1
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(350, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "현재 상품 이름:";
-
-            // labelUserName
-            this.labelUserName.AutoSize = true;
-            this.labelUserName.Location = new System.Drawing.Point(350, 150);
-            this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(80, 12);
-            this.labelUserName.TabIndex = 4;
-            this.labelUserName.Text = "사용자 이름:";
-
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(20, 20);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.RowTemplate.Height = 23;
+            dataGridView1.Size = new Size(300, 250);
+            dataGridView1.TabIndex = 0;
+            // 
             // textBox1
-            this.textBox1.Location = new System.Drawing.Point(350, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(180, 21);
-            this.textBox1.TabIndex = 2;
-
-            // textBoxUserName
-            this.textBoxUserName.Location = new System.Drawing.Point(350, 170);
-            this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(180, 21);
-            this.textBoxUserName.TabIndex = 5;
-
-            // textBoxUserEmail
-            this.textBoxUserEmail.Location = new System.Drawing.Point(350, 205);
-            this.textBoxUserEmail.Name = "textBoxUserEmail";
-            this.textBoxUserEmail.Size = new System.Drawing.Size(180, 21);
-            this.textBoxUserEmail.TabIndex = 6;
-
-            // buttonPrev
-            this.buttonPrev.Location = new System.Drawing.Point(350, 255);
-            this.buttonPrev.Name = "buttonPrev";
-            this.buttonPrev.Size = new System.Drawing.Size(85, 30);
-            this.buttonPrev.TabIndex = 7;
-            this.buttonPrev.Text = "이전";
-            this.buttonPrev.UseVisualStyleBackColor = true;
-            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
-
-            // buttonNext
-            this.buttonNext.Location = new System.Drawing.Point(445, 255);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(85, 30);
-            this.buttonNext.TabIndex = 8;
-            this.buttonNext.Text = "다음";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-
-            // textBoxSearch
-            this.textBoxSearch.Location = new System.Drawing.Point(20, 280);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(200, 21);
-            this.textBoxSearch.TabIndex = 9;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
-
+            // 
+            textBox1.Location = new Point(350, 60);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(180, 27);
+            textBox1.TabIndex = 2;
+            // 
             // buttonAdd
-            this.buttonAdd.Location = new System.Drawing.Point(350, 110);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(180, 35);
-            this.buttonAdd.TabIndex = 3;
-            this.buttonAdd.Text = "상품 추가";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-
+            // 
+            buttonAdd.Location = new Point(350, 110);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(180, 35);
+            buttonAdd.TabIndex = 3;
+            buttonAdd.Text = "상품 추가";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(350, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 20);
+            label1.TabIndex = 1;
+            label1.Text = "현재 상품 이름:";
+            // 
+            // textBoxUserName
+            // 
+            textBoxUserName.Location = new Point(350, 170);
+            textBoxUserName.Name = "textBoxUserName";
+            textBoxUserName.Size = new Size(180, 27);
+            textBoxUserName.TabIndex = 5;
+            // 
+            // textBoxUserEmail
+            // 
+            textBoxUserEmail.Location = new Point(350, 205);
+            textBoxUserEmail.Name = "textBoxUserEmail";
+            textBoxUserEmail.Size = new Size(180, 27);
+            textBoxUserEmail.TabIndex = 6;
+            // 
+            // labelUserName
+            // 
+            labelUserName.AutoSize = true;
+            labelUserName.Location = new Point(350, 150);
+            labelUserName.Name = "labelUserName";
+            labelUserName.Size = new Size(92, 20);
+            labelUserName.TabIndex = 4;
+            labelUserName.Text = "사용자 이름:";
+            // 
+            // buttonPrev
+            // 
+            buttonPrev.Location = new Point(350, 255);
+            buttonPrev.Name = "buttonPrev";
+            buttonPrev.Size = new Size(85, 30);
+            buttonPrev.TabIndex = 7;
+            buttonPrev.Text = "이전";
+            buttonPrev.UseVisualStyleBackColor = true;
+            buttonPrev.Click += buttonPrev_Click;
+            // 
+            // buttonNext
+            // 
+            buttonNext.Location = new Point(445, 255);
+            buttonNext.Name = "buttonNext";
+            buttonNext.Size = new Size(85, 30);
+            buttonNext.TabIndex = 8;
+            buttonNext.Text = "다음";
+            buttonNext.UseVisualStyleBackColor = true;
+            buttonNext.Click += buttonNext_Click;
+            // 
+            // textBoxSearch
+            // 
+            textBoxSearch.Location = new Point(20, 296);
+            textBoxSearch.Name = "textBoxSearch";
+            textBoxSearch.Size = new Size(200, 27);
+            textBoxSearch.TabIndex = 9;
+            textBoxSearch.TextChanged += textBoxSearch_TextChanged;
+            // 
+            // labelSearch
+            // 
+            labelSearch.AutoSize = true;
+            labelSearch.Location = new Point(20, 273);
+            labelSearch.Name = "labelSearch";
+            labelSearch.Size = new Size(39, 20);
+            labelSearch.TabIndex = 12;
+            labelSearch.Text = "검색";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.buttonPrev);
-            this.Controls.Add(this.buttonNext);
-            this.Controls.Add(this.textBoxSearch);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBoxUserEmail);
-            this.Controls.Add(this.textBoxUserName);
-            this.Controls.Add(this.labelUserName);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
-
+            Controls.Add(buttonAdd);
+            Controls.Add(buttonPrev);
+            Controls.Add(buttonNext);
+            Controls.Add(labelSearch);
+            Controls.Add(textBoxSearch);
+            Controls.Add(textBox1);
+            Controls.Add(textBoxUserEmail);
+            Controls.Add(textBoxUserName);
+            Controls.Add(labelUserName);
+            Controls.Add(label1);
+            Controls.Add(dataGridView1);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            // 즉시계산하지말고 performlayout에서 계산
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
-            this.PerformLayout();
+            PerformLayout();
         }
 
         #endregion

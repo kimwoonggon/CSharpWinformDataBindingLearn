@@ -11,7 +11,6 @@ namespace WinFormLearn
         private BindingSource bindingSource1 = new BindingSource();
         private BindingSource userBindingSource = new BindingSource();
         private User user;
-        private BindingList<Product> products;
         private List<Product> allProducts; // 원본 전체 목록 보관 (검색용)
         public Form1()
         {
@@ -27,40 +26,21 @@ namespace WinFormLearn
 
         private void InitializeData()
         {
-            // 기존 코드: BindingList<Product> 직접 초기화
-            // products = new BindingList<Product>
-            // {
-            //     new Product { Name = "사과" },
-            //     new Product { Name = "바나나" },
-            //     new Product { Name = "포도" }
-            // };
-
-            // 변경: 전체 원본 목록을 따로 보관하고 BindingList는 바인딩에 사용
             allProducts = new List<Product>
-            {
-                new Product { Name = "사과" },
-                new Product { Name = "바나나" },
-                new Product { Name = "포도" }
-            };
+    {
+        new Product { Name = "사과" },
+        new Product { Name = "바나나" },
+        new Product { Name = "포도" }
+    };
 
-            products = new BindingList<Product>(allProducts);
-
-            // 간단한 User 초기 데이터
             user = new User { Name = "홍길동", Email = "hong@example.com" };
         }
 
         private void InitializeBinding()
         {
-
-            // BindingSource가 실제 목록 관리
-            bindingSource1.DataSource = products;
-
-
-            // DataGridView는 목록 전체 표시
+            RefreshView(allProducts);
             dataGridView1.DataSource = bindingSource1;
 
-
-            // TextBox는 현재 선택된 항목의 Name과 연결
             textBox1.DataBindings.Add(
                 "Text",
                 bindingSource1,
@@ -69,47 +49,25 @@ namespace WinFormLearn
                 DataSourceUpdateMode.OnPropertyChanged
             );
 
-            // User 바인딩: 별도의 BindingSource를 사용하여 양방향 바인딩 설정
             userBindingSource.DataSource = user;
 
-            textBoxUserName.DataBindings.Add(
-                "Text",
-                userBindingSource,
-                nameof(User.Name),
-                true,
-                DataSourceUpdateMode.OnPropertyChanged
-            );
-
-            textBoxUserEmail.DataBindings.Add(
-                "Text",
-                userBindingSource,
-                nameof(User.Email),
-                true,
-                DataSourceUpdateMode.OnPropertyChanged
-            );
-
-            // Label은 User.Name을 실시간으로 따라감
-            labelUserName.DataBindings.Add(
-                "Text",
-                userBindingSource,
-                nameof(User.Name),
-                true,
-                DataSourceUpdateMode.OnPropertyChanged
-            );
-
+            textBoxUserName.DataBindings.Add("Text", userBindingSource, nameof(User.Name), true, DataSourceUpdateMode.OnPropertyChanged);
+            textBoxUserEmail.DataBindings.Add("Text", userBindingSource, nameof(User.Email), true, DataSourceUpdateMode.OnPropertyChanged);
+            labelUserName.DataBindings.Add("Text", userBindingSource, nameof(User.Name), true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            // 원본 목록과 바인딩 리스트에 항목 추가
             var newProduct = new Product { Name = $"새 상품 {allProducts.Count + 1}" };
             allProducts.Add(newProduct);
-            products.Add(newProduct);
 
-            // 새로 추가한 항목 선택
-            // 만약 검색으로 bindingSource1.DataSource가 대체된 상태라면 전체 목록으로 되돌립니다.
-            bindingSource1.DataSource = products;
+            textBoxSearch_TextChanged(null, EventArgs.Empty);
             bindingSource1.Position = bindingSource1.Count - 1;
+        }
+
+        private void RefreshView(IEnumerable<Product> items)
+        {
+            bindingSource1.DataSource = new BindingList<Product>(items.ToList());
         }
 
         private void buttonPrev_Click(object sender, EventArgs e)
@@ -131,13 +89,11 @@ namespace WinFormLearn
             var keyword = textBoxSearch.Text.Trim();
 
             var result = string.IsNullOrEmpty(keyword)
-                ? allProducts.ToList()
-                : allProducts.Where(p => p.Name != null && p.Name.Contains(keyword)).ToList();
+                ? allProducts
+                : allProducts.Where(p => p.Name != null && p.Name.Contains(keyword));
 
-            // 기존 바인딩을 유지하지 않고, 검색 결과로 새로운 BindingList를 바인딩
-            bindingSource1.DataSource = new BindingList<Product>(result);
+            RefreshView(result);
         }
-
 
     }
 }
