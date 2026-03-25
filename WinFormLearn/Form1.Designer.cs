@@ -16,6 +16,7 @@
         private System.Windows.Forms.Label labelUserName;
         private System.Windows.Forms.Button buttonPrev;
         private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.TextBox textBoxSearch;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -47,6 +48,7 @@
             this.labelUserName = new System.Windows.Forms.Label();
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             // 컨트롤 속성 많이 바꿀 테니까 그떄마다 레이아웃 계산하지 말고 좀 멈춰
             SuspendLayout();
@@ -113,6 +115,13 @@
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
 
+            // textBoxSearch
+            this.textBoxSearch.Location = new System.Drawing.Point(20, 280);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(200, 21);
+            this.textBoxSearch.TabIndex = 9;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+
             // buttonAdd
             this.buttonAdd.Location = new System.Drawing.Point(350, 110);
             this.buttonAdd.Name = "buttonAdd";
@@ -131,6 +140,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonPrev);
             this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBoxUserEmail);
             this.Controls.Add(this.textBoxUserName);
